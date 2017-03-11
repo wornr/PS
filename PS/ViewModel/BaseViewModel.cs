@@ -1,10 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
-using PS.ViewModel.Pages;
+
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+
+using System.Windows;
 
 namespace PS.ViewModel
 {
-    public abstract class BaseViewModel : ViewModelBase
-    {
+    public abstract class BaseViewModel : ViewModelBase {
+        private readonly MetroWindow _windowsInstance = Application.Current.MainWindow as MetroWindow;
         private ViewModelBase _currentViewModel;
 
         public ViewModelBase CurrentViewModel {
@@ -19,8 +23,10 @@ namespace PS.ViewModel
 
         public virtual void NavigateTo(ViewModelBase viewModel) {
             CurrentViewModel = viewModel;
-            //var dsManagerViewModel = viewModel as BaseViewModel;
-            //dsManagerViewModel?.OnLoad();
+        }
+
+        public async void DisplayDialog(string title, string description) {
+            await _windowsInstance.ShowMessageAsync(title, description);
         }
     }
 }
