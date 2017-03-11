@@ -1,0 +1,60 @@
+﻿<controls:MetroWindow x:Class="PS.View.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:pages="clr-namespace:PS.ViewModel.Pages"
+        xmlns:views="clr-namespace:PS.View.Pages"
+        mc:Ignorable="d"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        WindowStartupLocation="CenterScreen"
+        Title="Programowanie Sieciowe"
+        Width="800"
+        Height="600">
+
+    <Window.Resources>
+        <!-- Lab1 -->
+        <DataTemplate DataType="{x:Type pages:Lab1ViewModel}">
+            <views:Lab1/>
+        </DataTemplate>
+
+        <!-- Lab1 -->
+        <DataTemplate DataType="{x:Type pages:Lab2ViewModel}">
+            <views:Lab2/>
+        </DataTemplate>
+
+        <!-- Lab1 -->
+        <DataTemplate DataType="{x:Type pages:Lab3ViewModel}">
+            <views:Lab3/>
+        </DataTemplate>
+
+        <!-- Lab1 -->
+        <DataTemplate DataType="{x:Type pages:Lab4ViewModel}">
+            <views:Lab4/>
+        </DataTemplate>
+
+        <!-- Lab1 -->
+        <DataTemplate DataType="{x:Type pages:Lab5ViewModel}">
+            <views:Lab5/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Lab1" Command="{Binding OpenLab1Page}"/>
+            <Button Content="Lab2" Command="{Binding OpenLab2Page}"/>
+            <Button Content="Lab3" Command="{Binding OpenLab3Page}"/>
+            <Button Content="Lab4" Command="{Binding OpenLab4Page}"/>
+            <Button Content="Lab5" Command="{Binding OpenLab5Page}"/>
+        </StackPanel>
+
+        <controls:TransitioningContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
+    </Grid>
+</controls:MetroWindow>
+
