@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Programowanie Sieciowe"
         Width="800"
-        Height="600">
+        Height="600" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <!-- Lab1 -->
@@ -46,12 +46,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         
-        <StackPanel Orientation="Horizontal">
-            <Button Content="Lab1" Command="{Binding OpenLab1Page}"/>
-            <Button Content="Lab2" Command="{Binding OpenLab2Page}"/>
-            <Button Content="Lab3" Command="{Binding OpenLab3Page}"/>
-            <Button Content="Lab4" Command="{Binding OpenLab4Page}"/>
-            <Button Content="Lab5" Command="{Binding OpenLab5Page}"/>
+        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="False" CanVerticallyScroll="False">
+            <Button Content="Lab1" Command="{Binding OpenLab1Page}" Width="160"/>
+            <Button Content="Lab2" Command="{Binding OpenLab2Page}" Width="160"/>
+            <Button Content="Lab3" Command="{Binding OpenLab3Page}" Width="160"/>
+            <Button Content="Lab4" Command="{Binding OpenLab4Page}" Width="160"/>
+            <Button Content="Lab5" Command="{Binding OpenLab5Page}" Width="160"/>
         </StackPanel>
 
         <controls:TransitioningContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>

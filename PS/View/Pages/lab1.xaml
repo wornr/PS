@@ -8,26 +8,19 @@
       d:DesignHeight="800" d:DesignWidth="600">
 
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <TextBlock>Lab1</TextBlock>
-
-            <controls:MetroAnimatedTabControl>
-                <controls:MetroTabItem Header="Kodowanie">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding FilePath}" Width="300"/>
-                            <Button Content="Otwórz plik" Command="{Binding OpenFileBrowserCommand}" Width="100"/>
-                        </StackPanel>
-                        <Button Content="Koduj" Command="{Binding EncodeCommand}" Width="75"/>
-                        <Button Content="Dekoduj" Command="{Binding DecodeCommand}" Width="75"/>
-                    </StackPanel>
-                </controls:MetroTabItem>
-
-                <controls:MetroTabItem Header="Dekodowanie">
-                    
-                </controls:MetroTabItem>
-            </controls:MetroAnimatedTabControl>
+        <TextBlock HorizontalAlignment="Center">Lab1 - base64</TextBlock>
+        <StackPanel Orientation="Vertical" Margin="20">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding FilePath}" Width="660"/>
+                <Button Content="Otwórz plik" Command="{Binding OpenFileBrowserCommand}" Width="100"/>
+            </StackPanel>
+            
+            <controls:MetroProgressBar Minimum="0" Maximum="{Binding FileSize}" Value="{Binding Progress}" />
+            
+            <StackPanel Orientation="Horizontal" Margin="0,20" HorizontalAlignment="Center">
+                <Button Content="Koduj" IsEnabled="{Binding ButtonState}" Command="{Binding EncodeCommand}" Width="75" Margin="10,0"/>
+                <Button Content="Dekoduj" IsEnabled="{Binding ButtonState}" Command="{Binding DecodeCommand}" Width="75" Margin="10,0"/>
+            </StackPanel>
         </StackPanel>
-        <controls:ProgressRing IsActive="{Binding IsActive}" />
     </Grid>
 </UserControl>
