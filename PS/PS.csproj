@@ -108,6 +108,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\Mail.cs" />
+    <Compile Include="Model\Config.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Pages\Lab4ViewModel.cs" />
     <Compile Include="ViewModel\Pages\Lab3ViewModel.cs" />
