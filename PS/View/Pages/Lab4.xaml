@@ -4,9 +4,40 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300">
+      d:DesignHeight="600" d:DesignWidth="800">
 
     <Grid>
-        <TextBlock>Lab4</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock HorizontalAlignment="Center">Lab4 - FTP</TextBlock>
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Status: "/>
+                <TextBlock Text="{Binding ConnectionStatusDescription}" Foreground="{Binding ConnectionStatusColor}"/>
+            </StackPanel>
+
+            <TextBox Text="{Binding ActualDir}" IsReadOnly="True"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Center">
+                <Button Content="Połącz" Command="{Binding ConnectCommand}" Width="100"/>
+                <Button Content="Rozłącz" Command="{Binding DisconnectCommand}" Width="100"/>
+
+                <Button Content="Cofnij" Command="{Binding CdupCommand}" Width="100"/>
+                <Button Content="Otwórz" Command="{Binding CwdCommand}" Width="120"/>
+
+                <Button Content="Generuj drzewo" Command="{Binding ListAllCommand}" Width="100"/>
+            </StackPanel>
+        </StackPanel>
+
+        <TreeView Grid.Row="1" ItemsSource="{Binding Structure}" SelectedItemChanged="TreeView_OnSelectedItemChanged" MaxHeight="470">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </UserControl>
