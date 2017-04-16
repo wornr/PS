@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:converters="clr-namespace:PS.Converters"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800">
     
@@ -15,29 +16,30 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock HorizontalAlignment="Center">Lab4 - FTP</TextBlock>
-        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="20">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Status: "/>
-                <TextBlock Text="{Binding ConnectionStatusDescription}" Foreground="{Binding ConnectionStatusColor}"/>
-            </StackPanel>
 
-            <TextBox Text="{Binding ActualDir}" IsReadOnly="True"/>
-            
-            <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Center">
-                <Button Content="Połącz" Command="{Binding ConnectCommand}" Width="100"/>
-                <Button Content="Rozłącz" Command="{Binding DisconnectCommand}" Width="100"/>
-
-                <Button Content="Cofnij" Command="{Binding CdupCommand}" Width="100"/>
-                <Button Content="Otwórz" Command="{Binding CwdCommand}" Width="120"/>
-
-                <Button Content="Generuj drzewo" Command="{Binding ListAllCommand}" Width="100"/>
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0 5 0 0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding ConnectCommand}" Width="40" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}">
+                    <iconPacks:PackIconModern Kind="Connect" />
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding DisconnectCommand}" Width="40" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}">
+                    <iconPacks:PackIconModern Kind="Disconnect" />
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding CdupCommand}" Width="40" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}">
+                    <iconPacks:PackIconMaterial Kind="KeyboardBackspace" />
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding CwdCommand}" Width="40" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}">
+                    <iconPacks:PackIconMaterial Kind="SubdirectoryArrowRight" />
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding ListAllCommand}" Width="40" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}">
+                    <iconPacks:PackIconMaterial Kind="FileTree" />
+                </Button>
             </StackPanel>
         </StackPanel>
 
-        <TreeView Grid.Row="1" ItemsSource="{Binding Structure}" SelectedItemChanged="TreeView_OnSelectedItemChanged" MaxHeight="470">
+        <TreeView Grid.Row="1" ItemsSource="{Binding Structure}" SelectedItemChanged="TreeView_OnSelectedItemChanged" MaxHeight="470" Margin="5,10">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
@@ -50,5 +52,13 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
+
+        <Border Grid.Row="2" BorderThickness="0 1 0 0" BorderBrush="#F444">
+            <Grid>
+                <TextBlock Text="{Binding ActualDir}"/>
+                <iconPacks:PackIconMaterial HorizontalAlignment="Right" Foreground="{Binding ConnectionStatusColor}" Kind="LanConnect" />
+            </Grid>
+        </Border>
+
     </Grid>
 </UserControl>

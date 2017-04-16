@@ -38,23 +38,63 @@
         <DataTemplate DataType="{x:Type pages:Lab5ViewModel}">
             <views:Lab5/>
         </DataTemplate>
+
+        <!-- Hamburger Menu Templates -->
+        <DataTemplate x:Key="ItemTemplate"
+                      DataType="{x:Type controls:HamburgerMenuGlyphItem}">
+            <Grid Height="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           FontSize="24"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="Wingdings"
+                           Foreground="White"
+                           Text="{Binding Glyph}" />
+                <TextBlock Grid.Column="1"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Foreground="White"
+                           Text="{Binding Label}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ContentTemplate"
+                      DataType="{x:Type controls:HamburgerMenuItem}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                
+                <Border Background="#FF252525">
+                    <TextBlock 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="White"
+                        Text="{Binding Label}" />
+                </Border>
+                <controls:TransitioningContentControl Grid.Row="1" 
+                                                     Focusable="False"
+                                                     Foreground="{DynamicResource BlackBrush}"
+                                                     Content="{Binding Tag}" />
+            </Grid>
+        </DataTemplate>
+
     </Window.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        
-        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="False" CanVerticallyScroll="False">
-            <Button Content="Lab1" Command="{Binding OpenLab1Page}" Width="160"/>
-            <Button Content="Lab2" Command="{Binding OpenLab2Page}" Width="160"/>
-            <Button Content="Lab3" Command="{Binding OpenLab3Page}" Width="160"/>
-            <Button Content="Lab4" Command="{Binding OpenLab4Page}" Width="160"/>
-            <Button Content="Lab5" Command="{Binding OpenLab5Page}" Width="160"/>
-        </StackPanel>
-
-        <controls:TransitioningContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
+        <controls:HamburgerMenu DisplayMode="CompactOverlay"
+                                Content="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem}"
+                                ContentTemplate="{StaticResource ContentTemplate}"
+                                ItemsSource="{Binding MenuItems}"
+                                ItemTemplate="{StaticResource ItemTemplate}"
+                                SelectedItem="{Binding SelectedMenuItem}"/>
     </Grid>
 </controls:MetroWindow>
 

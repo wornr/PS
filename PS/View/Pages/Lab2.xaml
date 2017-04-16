@@ -4,50 +4,53 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d"
       d:DesignHeight="600" d:DesignWidth="800">
 
     <Grid>
-        <TextBlock HorizontalAlignment="Center">Lab2 - POP3</TextBlock>
-        <StackPanel Orientation="Vertical" Margin="20">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Status: "/>
-                <TextBlock Text="{Binding Status}" Foreground="{Binding StatusColor}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <StackPanel Orientation="Vertical" Margin="5">
+                <TextBlock Text="{Binding NewMessagesCounter, StringFormat=Nowych: {0:0}}" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding AllMessagesCounter, StringFormat=Łącznie: {0:0}}" HorizontalAlignment="Right"/>
+
+                <DataGrid ItemsSource="{Binding Mails}" Height="390" AutoGenerateColumns="False" IsReadOnly="True" Margin="0 5">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding New}" Value="true">
+                                    <Setter Property="Background" Value="LimeGreen"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                        <DataGridTextColumn Header="UIDL" Binding="{Binding UniqueId}" Width="400"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Orientation="Horizontal" Margin="0,20" HorizontalAlignment="Center">
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" IsEnabled="{Binding ConnectButtonState}" Command="{Binding ConnectCommand}" Width="40" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}">
+                        <iconPacks:PackIconModern Kind="Connect" />
+                    </Button>
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" IsEnabled="{Binding DisconnectButtonState}" Command="{Binding DisconnectCommand}" Width="40" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}">
+                        <iconPacks:PackIconModern Kind="Disconnect" />
+                    </Button>
+                </StackPanel>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Nowych: "/>
-                <TextBlock Text="{Binding NewMessagesCounter}"/>
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Łącznie: "/>
-                <TextBlock Text="{Binding AllMessagesCounter}"/>
-            </StackPanel>
-            
-            <DataGrid ItemsSource="{Binding Mails}" Height="400" AutoGenerateColumns="False" IsReadOnly="True">
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding New}" Value="true">
-                                <Setter Property="Background" Value="LimeGreen"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.RowStyle>
+            <controls:ProgressRing IsActive="{Binding IsLoading}"/>
+        </Grid>
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                    <DataGridTextColumn Header="UIDL" Binding="{Binding UniqueId}" Width="400"/>
-                </DataGrid.Columns>
-            </DataGrid>
-
-            <StackPanel Orientation="Horizontal" Margin="0,20" HorizontalAlignment="Center">
-                <Button Content="Połącz" IsEnabled="{Binding ConnectButtonState}" Command="{Binding ConnectCommand}" Width="200"/>
-                <Button Content="Rozłącz" IsEnabled="{Binding DisconnectButtonState}" Command="{Binding DisconnectCommand}" Width="200"/>
-            </StackPanel>
-        </StackPanel>
-        
-        <controls:ProgressRing IsActive="{Binding IsLoading}"/>
+        <Border Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="#F444">
+            <iconPacks:PackIconMaterial HorizontalAlignment="Right" Foreground="{Binding StatusColor}" Kind="LanConnect" />
+        </Border>
     </Grid>
 </UserControl>
